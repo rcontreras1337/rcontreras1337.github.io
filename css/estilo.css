@@ -1,12 +1,12 @@
 
   .modal {
-    
+    height: auto;
     width: auto;
   }
 #modal1{
     
         overflow-x:hidden;
-        overflow-y:hidden;
+        /*overflow-y:hidden;*7
    
 }
 
