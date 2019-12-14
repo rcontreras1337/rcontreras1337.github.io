@@ -1,0 +1,81 @@
+
+  .modal {
+    
+    width: auto;
+  }
+#modal1{
+    
+        overflow-x:hidden;
+        overflow-y:hidden;
+   
+}
+
+#cartas_superheroes{
+    border-radius: 30px;
+    border: black 2px solid;
+
+}
+
+#cartas_superheroes:hover{
+    -moz-animation: 0.7s click 1;
+    -webkit-animation: 0.7s click 1;
+    -o-animation: 0.7s click 1;
+    animation: 0.7s click 1;
+
+}
+
+@-moz-keyframes click{
+    25%{
+        
+        -moz-transform: scale(0.85);
+       
+    }
+    50%{
+       
+        -moz-transform: scale(1.1);
+        
+    }
+}
+@-o-keyframes click{
+    25%{
+        -o-transform: scale(0.85);
+        
+    }
+    50%{
+        -o-transform: scale(1.1);
+        
+    }
+}
+@-webkit-keyframes click{
+    25%{
+        
+        -webkit-transform: scale(0.85);
+    }
+    50%{
+        -
+        -webkit-transform: scale(1.1);
+    }
+}
+
+@keyframes click{
+    25%{
+        transform: scale(0.85);
+    }
+    50%{
+        transform: scale(1.1);
+        
+    }
+}
+
+#modal1 {
+    border-radius: 30px;
+    border: black 3px solid;
+}
+#fuenteMarvel {
+    font-family: 'Marvel', sans-serif;
+    font-size: 17px;
+}
+#fuenteCuerpo{
+    font-family: 'Lilita One', cursive;
+    font-size: 17px;
+}

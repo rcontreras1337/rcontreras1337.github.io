@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lilita+One|Marvel&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Super Heroes</title>
+</head>
+
+<body class="red darken-3" style="background-image: url('img/navy.png')">
+
+  <header id="fuenteCuerpo">
+    <!-- cabezera pagina -->
+    <nav class="black">
+      <div class="nav-wrapper">
+        <a href="https://uwanime.files.wordpress.com/2017/02/quality-comics-logo.png" class="brand-logo center"><img
+            src="https://uwanime.files.wordpress.com/2017/02/quality-comics-logo.png" height="80"></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+        <ul class="right hide-on-med-and-down">
+
+          <li><a onClick="cambiar('superheroestab')" href="#">Super Heroes</a></li>
+          <li><a onClick="cambiar('aboutme')" href="#">Creadores</a></li>
+
+        </ul>
+
+      </div>
+    </nav>
+
+
+
+    <ul class="sidenav black" id="mobile-demo" style="background-image: url('img/rampage.png')">
+
+      <li class="white-text"><a class="white-text" href="#" onClick="cambiar('aboutme')">Creadores</a></li>
+      <li class="white-text"><a class="white-text" onClick="cambiar('superheroestab')" href="#">Super Heroes</a></li>
+    </ul>
+  </header>
+
+  <!-- Fin de cabezera -->
+
+  <main id="fuenteMarvel">
+
+    <!-- Inicio modal -->
+
+
+    <!-- Modal Structure -->
+    
+      <div id="modal1" class="modal">
+        <div v-if="datos_superHeroes != null">
+          <!-- Validacion de datos_superHeroes -->
+          <div class="modal-content red " style="background-image: url('img/cardboard.png')">
+            <!-- Carta Modal -->
+            <div class="col s12 m12 l12">
+              <a href="#!" class="left modal-close waves-effect waves-green btn-flat"><i
+                  class="material-icons">backspace</i></a>
+              <h4 class="header center" style="font-family: 'Lilita One', cursive;">Informacion adicional</h4>
+
+              <div class="card horizontal z-depth-4 red lighten-1" style="background-image: url('img/cardboard.png')">
+
+                <div class="card-image hide-on-med-and-down">
+                  <img :src="url_img_carta" height="350">
+                </div>
+
+
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <!-- {{test.obj['full-name']}} -->
+                    <P><b>Nombre completo:</b> {{(datos_superHeroes.biography['full-name'] == "")?"Sin informacion":datos_superHeroes.biography['full-name'] }}</P>
+                    <p><b>Alias:</b> {{datos_superHeroes.biography.aliases[0]}}</p>
+                    <p><b>Publicador:</b> {{datos_superHeroes.biography.publisher}}</p>
+                    <p><b>Aliniación:</b> {{(datos_superHeroes.biography.alignment =="good")?"Bueno":"Malo"}}</p>
+                    <p><b>Genero:</b> {{(datos_superHeroes.appearance.gender =="Male")?"Hombre":"Mujer"}}</p>
+                    <p><b>Raza:</b> {{datos_superHeroes.appearance.race}} </p>
+                    <p><b>Estatura:</b> {{datos_superHeroes.appearance.height[1]}}</p>
+                    <p><b>Peso:</b> {{datos_superHeroes.appearance.weight[1]}}</p>
+                    <p><b>Trabajo:</b> {{datos_superHeroes.work.occupation}}</p>
+                    <p><b>Base:</b> {{datos_superHeroes.work.base}}</p>
+                    <p><b>Conexiones:</b> {{datos_superHeroes.connections.relatives}}</p>
+                  </div>
+                </div><!-- card Stacked -->
+
+              </div><!-- CARD HORIZONTAL -->
+            </div>
+            <!-- Fin de primera fila -->
+          </div>
+          <!-- fin de modal -->
+        </div>
+        <!-- fin validacion de datos -->
+      </div>
+      <!-- Fin modal -->
+
+
+    <!-- Comienzo Contenido pagina -->
+
+    <!-- Mascara de carga -->
+
+    <div class="row center" id="pantalla_carga" style="display: block; z-index: 999; height:80vh;">
+      <div class="col l12 m12 s12">
+        <h1 style="font-family: 'Lilita One', cursive;">Cargando Cartas</h1>
+
+        <div class="progress black" style="margin-top: 10%;">
+          <div class="determinate white" :style="barra + progreso_carga + barra_porcentaje"></div>
+        </div>
+        <h2 class="white-text">{{progreso_carga.toFixed(1)}}%</h2>
+        <p class="white-text" style="font-style: 20px;">Estamos cargando para ti algunas cartas, para que puedas
+          mejora la experiencia de uso,
+          mientras las demas se cargan, solo cargaremos algunas para mostrarte la pagina y mientras
+          navegas se carguen las demas.
+        </p>
+        <p class="white-text"><b>IMPORTANTE, SI TU CONEXION A INTERNET ES MALA O INESTABLE, LA PAGINA TENDRA PROBLEMAS
+            AL CARGAR</b></p>
+
+      </div>
+    </div>
+
+    <!-- Fin mascara carga -->
+
+    <!-- Inicio informacion Creadores -->
+    <div class="row" id="aboutme" style="display: none;">
+      <div class="col l12 m12 s12 center">
+        <h1>Creadores</h1>
+      </div>
+
+      <div class="col l4 m12 s12 offset-l2">
+        <div class="card">
+          <div class="card-image">
+            <img
+              src="https://instagram.fccp1-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/71200733_698942687266640_5790849875136233598_n.jpg?_nc_ht=instagram.fccp1-1.fna.fbcdn.net&_nc_cat=108&oh=3eea23ccef4f4fda357e843dfd1a0a12&oe=5EAF32A4">
+            <span class="card-title black">Ruben Contreras</span>
+          </div>
+        </div>
+      </div>
+      <div class="col l4 m12 s12">
+        <div class="card">
+          <div class="card-image">
+            <img
+              src="https://instagram.fccp1-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p750x750/50109971_2325911564295404_6506589610966776152_n.jpg?_nc_ht=instagram.fccp1-1.fna.fbcdn.net&_nc_cat=108&oh=00ff60290b7c0a689cdfec2275c07953&oe=5E75C2A2">
+            <span class="card-title black">Hugo Soto</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- informaciooncreadores -->
+
+    <!-- Cartas de super heroes -->
+
+    <div class="row" id="superheroestab" style="display: none;">
+      <div class="col l3 m6 s12" v-for="x in superheroes">
+        <div id="cartas_superheroes" class="card-panel center z-depth-4 grey lighten-4" @click="carga_modal(x)"
+          style="background-image: url('img/sofcarta.png')">
+          <!-- inicio cardpanel -->
+          <h4 class="center"><b>({{x.id}})</b> {{x.name}}</h4>
+          <img :src="x.image.url" height="250" class=" z-depth-3">
+          <hr>
+          <h5><b>Habilidades</b></h5>
+          <div class="row">
+            <div class="col l8 offset-l2 offset-m2 m8 offset-s1 s10">
+              <span>Inteligencia ({{(x.powerstats.intelligence != "null")?x.powerstats.intelligence:"0"}})</span>
+              <div class="progress">
+                <div class="determinate blue" :style="barra + x.powerstats.intelligence +barra_porcentaje"></div>
+              </div>
+              <span>Fuerza ({{(x.powerstats.strength != "null")? x.powerstats.strength:"0"}})</span>
+              <div class="progress">
+                <div class="determinate red" :style="barra + x.powerstats.strength +barra_porcentaje"></div>
+              </div>
+              <span>Velocidad ({{(x.powerstats.speed != "null")?x.powerstats.speed:"0"}})</span>
+              <div class="progress">
+                <div class="determinate yellow" :style="barra + x.powerstats.speed +barra_porcentaje"></div>
+              </div>
+              <span>Durabilidad ({{(x.powerstats.durability != "null")?x.powerstats.durability:"0"}})</span>
+              <div class="progress">
+                <div class="determinate grey" :style="barra + x.powerstats.durability +barra_porcentaje"></div>
+              </div>
+              <span>Poder ({{(x.powerstats.power != "null")?x.powerstats.power:"0"}})</span>
+              <div class="progress">
+                <div class="determinate green" :style="barra + x.powerstats.power +barra_porcentaje"></div>
+              </div>
+              <span>Combate ({{(x.powerstats.combat != "null")?x.powerstats.combat:"0"}})</span>
+              <div class="progress">
+                <div class="determinate black" :style="barra + x.powerstats.combat +barra_porcentaje"></div>
+              </div>
+            </div>
+          </div><!-- fin row de card panel -->
+        </div>
+      </div>
+    </div>
+
+    <!-- fin cartas de superheroes -->
+
+  </main>
+  <!-- Fin de contenido  -->
+
+  <!-- Comienzo de Footer -->
+  <footer class="page-footer grey darken-4" id="fuenteCuerpo">
+    <!-- Todo foote donde va todo -->
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Super Heroes</h5>
+          <p class="grey-text text-lighten-4"><a
+              href="https://uwanime.files.wordpress.com/2017/02/quality-comics-logo.png" class="brand-logo"><img
+                src="https://uwanime.files.wordpress.com/2017/02/quality-comics-logo.png" height="80"></a></p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Sobre Nosotros</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" onClick="cambiar('aboutme')" href="#">Creadores</a></li>
+            <li><a class="grey-text text-lighten-3" href="#">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- fin primera fila -->
+    <div class="footer-copyright black">
+      <div class="container">
+        © 2020 Derechos Reservados
+        <a class="grey-text text-lighten-4 right" onClick="cambiar('superheroestab')" href="#">SuperHeroes</a>
+      </div>
+    </div>
+    <!-- fin segunda fila -->
+  </footer>
+
+
+  <!--JAVA SCRIPTS-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
